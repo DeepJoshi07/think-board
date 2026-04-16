@@ -1,14 +1,16 @@
 import express from "express"
-import { addNotes, deleteNotes, getNotes, updateNotes } from "../controllers/notes.controller.js"
+import { addNotes, deleteNotes, getNotes, getNote, updateNotes, asyncWrapper } from "../controllers/notes.controller.js"
 
 const router = express.Router()
 
-router.get("/",getNotes)
+router.get("/",asyncWrapper(getNotes))
 
-router.post("/",addNotes)
+router.get("/:id",asyncWrapper(getNote))
 
-router.put("/:id",updateNotes)
+router.post("/",asyncWrapper(addNotes))
 
-router.get("/:id",deleteNotes)
+router.put("/:id",asyncWrapper(updateNotes))
+
+router.delete("/:id",asyncWrapper(deleteNotes))
 
 export default router;

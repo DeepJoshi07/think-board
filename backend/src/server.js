@@ -3,12 +3,13 @@ import notesRouter from "./routes/notes.route.js";
 import { connectDB } from "./config/db.js";
 import "dotenv/config";
 import rateLimiter from "./middleware/rateLimiter.js";
-
+import cors from "cors"
 const PORT = process.env.PORT;
 
 const app = express();
 
 app.use(express.json());
+app.use(cors("http://localhost:5173"))
 app.use(rateLimiter);
 
 app.use("/api/notes", notesRouter);
